@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+def projects(request):
+    context = {}
+    return render(request, "projects.html", context)
+
+def singleProject(request, pk):
+    context = {}
+    return render(request, "single-projects.html", context)

@@ -1,5 +1,7 @@
 from django.urls import path
+from .views import *
 
 urlpatterns = [
-    path("",),
+    path("", projects, name='projects'),
+    path("single-project/<str:pk>/", singleProject, name='single-project'),
 ]
