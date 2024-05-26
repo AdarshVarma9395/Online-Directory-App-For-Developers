@@ -11,6 +11,7 @@
         <th scope="col">Negative Votes</th>
         <th scope="col">Created Date</th>
         <th scope="col">View</th>
+        <th scope="col">Update</th>
     </tr>
     {% for project in projects %}
         <tr>
@@ -20,6 +21,8 @@
             <td>{{project.vote_ratio}}</td>
             <td>{{project.created}}</td>
             <td><a href="{% url 'single-project' project.id %}">View</a></td>
+            <td><a href="{% url 'delete-project' project.id %}">Delete</a></td>
+            <td><a href="{% url 'update-project' project.id %}">Update</a></td>
         </tr>
     {% endfor %}
     
