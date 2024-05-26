@@ -3,4 +3,25 @@
 
 <h1>Projects Templates</h1>
 
+<table class="table">
+    <tr>
+        <th scope="col">Sr No</th>
+        <th scope="col">Projects</th>
+        <th scope="col">Positive Votes</th>
+        <th scope="col">Negative Votes</th>
+        <th scope="col">Created Date</th>
+        <th scope="col">View</th>
+    </tr>
+    {% for project in projects %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{project.title}}</td>
+            <td>{{project.vote_total}}</td>
+            <td>{{project.vote_ratio}}</td>
+            <td>{{project.created}}</td>
+            <td><a href="{% url 'single-project' project.id %}">View</a></td>
+        </tr>
+    {% endfor %}
+    
+</table>
 {% endblock content %}
