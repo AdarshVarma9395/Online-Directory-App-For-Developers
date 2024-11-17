@@ -13,6 +13,7 @@ class ProjectForm(ModelForm):
         widgets = {
             'tags' : forms.CheckboxSelectMultiple(),
         }
+
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
 
@@ -34,3 +35,25 @@ class ProjectForm(ModelForm):
         # self.fields['title'].widget.attrs.update({'class': 'input'}) ---->we can also change the css class one by one 
         # self.fields['description'].widget.attrs.update({'class': 'input', 'placeholder':'enter discription'})
         #                                                                                              -->can also use placeholder
+
+class ReviewForm(ModelForm):
+    class Meta:
+        model = Review
+        fields = ['value', 'body']
+
+        labels = {
+            'value':'Place your Vote',
+            'body':'Add a comment with your vote',
+        }
+    
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+
+        for name, field in self.fields.items():    # using for-loop to change class of the field 
+            field.widget.attrs.update({'class': 'input'})
+        self.fields['value'].widget.attrs.update({'style': 'width: 100% !important;'})
+
+
+
+
+    
