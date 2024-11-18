@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from .models import Profile, Skill
+from .models import Profile, Skill, Message
 
 
 
@@ -76,6 +76,33 @@ class SkillForm(ModelForm):
         placeholders = {
         'name': 'Enter your Skill',
         'description': 'Enter Description',
+        }
+
+        for name, field in self.fields.items():    
+            field.widget.attrs.update({'class': 'input'})
+
+            if name in placeholders:
+                field.widget.attrs.update({'placeholder': placeholders[name]})
+
+
+
+class MessageForm(ModelForm):
+    class Meta:
+        model = Message
+        fields = ['name', 'email', 'subject', 'body']
+
+        labels = {
+            'body':'Enter Text'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(MessageForm, self).__init__(*args, **kwargs)
+        
+        placeholders = {
+        'name': 'Enter your Full Name',
+        'email': 'Enter your Email',
+        'subject':'Enter your Subject',
+        'body':'Enter Your Message'
         }
 
         for name, field in self.fields.items():    

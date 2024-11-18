@@ -16,4 +16,9 @@ urlpatterns = [
     path('logout/', logoutUser, name='logout'),
     path('register/', registerUser, name='register'),
 
+
+    path('inbox/', inbox, name='inbox'),
+    path('message/<str:pk>/', viewMessage, name='message'),
+    path('create-message/<str:pk>/', createMessage, name='create-message'),
+
 ]
