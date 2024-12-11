@@ -23,6 +23,14 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.username)
     
+    @property
+    def imageURL(self):
+        try:
+            url = self.profile_image.url
+        except:
+            url = '/images/profiles/user-default.png'
+        return url
+
     class Meta:
         ordering = ['-created']
     

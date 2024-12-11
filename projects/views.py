@@ -28,10 +28,12 @@ def singleProject(request, pk):
         review.owner = request.user.profile
         review.save()
         project.getVoteCount
-        messages.success(request, 'Your review was successfully submitted!')
+        messages.success(request, 'Your review was successfully Created!')
         return redirect('single-project', pk=project.id)
     context = {'projects':project, 'reviews':reviews, 'form':form}
     return render(request, "projects/single-project.html", context)
+
+
 
 @login_required(login_url='login')
 def createProject(request):
@@ -39,30 +41,43 @@ def createProject(request):
     profile = request.user.profile
     form = ProjectForm()
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split()
         form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
             project = form.save(commit = False)
             project.owner = profile   #-->project owner(one-to-many) is equal to logged-in user 
             project.save()
             messages.success(request, 'Project was Created successfully!')
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                project.tags.add(tag)
             return redirect('projects')
     context = {'form':form}
     return render(request, 'projects/project_form.html', context)
+
+
 
 @login_required(login_url='login')
 def updateProject(request, pk):
     profile = request.user.profile
     project = profile.project_set.get(id=pk)
     form = ProjectForm(instance=project)
+
     if request.method == 'POST':
+        newtags = request.POST.get('newtags').replace(',', " ").split()
         form = ProjectForm(request.POST, request.FILES, instance=project)
         if form.is_valid():
-            form.save()
+            project = form.save()
+            for tag in newtags:
+                tag, created = Tag.objects.get_or_create(name=tag)
+                project.tags.add(tag)
             messages.success(request, 'Project was Updated successfully!')
             return redirect('account')
             
-    context = {'form':form}
+    context = {'form':form, 'project':project}
     return render(request, 'projects/project_form.html', context)
+
+
 
 @login_required(login_url='login')
 def deleteProject(request, pk):

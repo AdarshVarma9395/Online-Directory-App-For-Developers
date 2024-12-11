@@ -19,7 +19,16 @@ class Project(models.Model):
         return self.title
     
     class Meta:
-        ordering = ['created']
+        ordering = ['-created']
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.featured_image.url
+        except:
+            url = '/images/default.jpg'
+        return url
+
 
     @property
     def reviewers(self):        #so this function is getting a list of user id who reviewd this project

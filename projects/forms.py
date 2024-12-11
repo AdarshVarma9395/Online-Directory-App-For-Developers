@@ -8,12 +8,12 @@ class ProjectForm(ModelForm):
         model = Project
         fields = '__all__'
         # fields = ['title', 'featured_image', 'description','demo_link', 'source_link']
-        exclude = ['vote_total', 'vote_ratio', 'owner']
+        exclude = ['vote_total', 'vote_ratio', 'owner', 'tags']
 
         widgets = {
             'tags' : forms.CheckboxSelectMultiple(),
         }
-
+    
     def __init__(self, *args, **kwargs):
         super(ProjectForm, self).__init__(*args, **kwargs)
 

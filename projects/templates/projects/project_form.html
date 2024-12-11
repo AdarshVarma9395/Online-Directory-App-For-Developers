@@ -19,6 +19,21 @@
 
                 {% endfor %}
 
+
+                <div class="form__field">
+                    <label for="formInput#text">Add Skills</label>
+                    <textarea class="input" placeholder="Add tags here..." name="newtags"></textarea>
+                </div>
+
+                
+                <div class="form__field">
+                    {% for tag in project.tags.all  %}
+                      <div class="project-tag tag tag--pill tag--sub tag--lg" data-tag="{{tag.id}}" data-project="{{project.id}}">{{tag.name}} &#215;</div>
+                    {% endfor %}
+                </div>
+
+
+
                
                 <input class="btn btn--sub btn--lg  my-md" type="submit" value="Submit" />
             </form>
@@ -26,4 +41,6 @@
     </div>
 </main>
 
+
 {% endblock content %}
+
